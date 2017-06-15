@@ -176,7 +176,7 @@ var func = function (event) {
 };
 document.addEventListener('mousedown', func);
 ```
-* 弹出框位置
+3. 弹出框位置  
 我需要一个不会被overflow遮挡,会随滚动条滚动的下拉弹出框。
 不被遮挡选择插入到body里面，用absolute布局，这样就出现一个问题，局部滚动条滚动时，他不跟着动。当时我的页面有两个滚动条，所以我监听这两个滚动条，在滚动时把下拉框关闭，这样做很不合适。
 后来看element-ui的源码时，想看看他们的select是怎么写的，解决了我的问题，发现了他们用了一个叫popper.js的插件，我试用了一下，可以。
