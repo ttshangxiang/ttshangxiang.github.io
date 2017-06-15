@@ -104,14 +104,14 @@ _.includes({ 'a': 1, 'b': 2 }, 1);// => true
 _.includes('abcd', 'bc');// => true
 ```
 * _.chain()  
-这个我没用过，但是看上去很有用，打一个包，然后可以链式调用，这个包有个value方法，用于计算，当需要对数组做一系列操作时可以用    
+这个我没用过，但是看上去很有用，打一个包，然后可以链式调用，这个包有个value方法，用于计算，当需要对数组做一系列操作时可以用       
+
 ```
 var users = [
   { 'user': 'barney',  'age': 36 },
   { 'user': 'fred',    'age': 40 },
   { 'user': 'pebbles', 'age': 1 }
 ];
- 
 var youngest = _
   .chain(users)
   .sortBy('age')
