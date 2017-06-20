@@ -9,7 +9,7 @@ lodash一开始是Underscore.js库的一个fork，因为和其他(Underscore.js�
 
 ## 链式调用、延迟计算：_.chain  
 包装对象，通过链式调用，进行复杂的多步操作。  
-chain是延迟执行的，只有调用value方法，才会真正计算，所以性能很好。
+chain是延迟执行的，只有调用value方法，才会真正计算，所以性能很好。  
 例子：假设我的需求渲染一个表格，取sort排名前三个，然后data1大于1显示红色，小于1显示绿色
 ```
 var list = [
@@ -29,7 +29,7 @@ var list2 = _
         if (o.data < 1) {
             o.data = '<span style="color:green;">' + o.data + '</span>';
         }
-        return o.data;
+        return o;
     })
     .value();
 ```
