@@ -14,7 +14,7 @@ WebComponents其实我很早之前就听过，但是仅止于概念。当时的�
 
 ## 简介
 
-以下部分摘抄自MDN，想看完整的请[点击跳转](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)，下面还有例子，我就不重复摘抄了。
+以下部分摘抄自MDN，想看完整的请查看[https://developer.mozilla.org/zh-CN/docs/Web/Web_Components](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components) ，下面还有例子，我就不重复摘抄了。
 > Web Components是一套不同的技术，允许您创建可重用的定制元素（它们的功能封装在您的代码之外）并且在您的web应用中使用它们。  
 
 > 它们可以一起使用来创建封装功能的定制元素，可以在你喜欢的任何地方重用，不必担心代码冲突  
@@ -45,16 +45,16 @@ webcomponentsjs是一个兼容库，这个库提供了Custom Elements、Shadow D
 在百度搜webcomponentsjs的第一个网页是知乎的，打开后发现大牛们都在说他的不好，甚至有人说“Webcomponent名存实亡”，估计很多人是给这吓退的。  
 但是看npm的周下载量也有26000+，而且还是在上升的趋势，说明也不是不能用的，我觉得对兼容性没那么严格的项目来说可以尝试。谷歌的polymer也在使用webcomponentsjs，实际上这就是polymer那一群人做出来的，看github上的贡献者就会发现。既然Youtube在用，那也不用那么怕，我这样安慰道。
 
-在v2中用法就是引入webcomponents-bundle.js，其他高级用法可参照polymer的设置[点击跳转](https://polymer-zh.cn/3.0/docs/polyfills)
+在v2中用法就是引入webcomponents-bundle.js，其他高级用法可参照polymer的设置[查看https://polymer-zh.cn/3.0/docs/polyfills](https://polymer-zh.cn/3.0/docs/polyfills)
 
 ## 扩展
 webcomponents是提供了template，但是用过其他主流框架的人会发现，这个template根本不够用。既没有数据绑定，也没用事件绑定，条件、循环这些通通都没有。这个时候呢[webcomponents.org](https://www.webcomponents.org/introduction)网站介绍了一些库：  
-* [Bosonic](https://bosonic.github.io/)
-* [Polymer](https://www.polymer-project.org/)
-* [SkateJS](https://github.com/skatejs/skatejs)
-* [Slim.js](http://slimjs.com/)
-* [Stencil](https://stenciljs.com/)
-* [X-Tag](https://x-tag.github.io/)
+* Bosonic [https://bosonic.github.io/](https://bosonic.github.io/)
+* Polymer [https://www.polymer-project.org/](https://www.polymer-project.org/)
+* SkateJS [https://github.com/skatejs/skatejs](https://github.com/skatejs/skatejs)
+* Slim.js [http://slimjs.com/](http://slimjs.com/)
+* Stencil [https://stenciljs.com/](https://stenciljs.com/)
+* X-Tag [https://x-tag.github.io/](https://x-tag.github.io/)
 
 X-Tag是比较老库，新版的github无人问津，我看他的介绍发现写法和官方WebComponents的写法差别很大，所以我不太喜欢。  
 Slim.js是比较能接受的了，绑定和条件循环都有，文件也很小，看名字也知道定位是精致小巧。  
@@ -88,7 +88,7 @@ selector {
   @apply --mixin-name;
 }
 ```
-查看更多请[点击跳转](https://polymer-zh.cn/3.0/docs/devguide/custom-css-properties)
+查看更多请前往[https://polymer-zh.cn/3.0/docs/devguide/custom-css-properties](https://polymer-zh.cn/3.0/docs/devguide/custom-css-properties)
 
 ### 自定义事件 - CustomEvent
 polymer中有提到这个，感觉可以用来作为父子组件传值，vue就是这么做的。vue还推荐在简单的项目里面不用vuex管理状态，而用一个new Vue()来注册、触发自定义事件，使用这个CustomEvent也可以模仿。
@@ -104,7 +104,13 @@ obj.dispatchEvent(event)
 ### 监听DOM - MutationObserver
 用这个实现双向绑定的dom到数据的环节。搜索时还搜到有人在推荐用这个实现水印不可删除，就是监听后删掉就给它补上，对方一定很烦。
 当然写个循环监听也可以做到了，但是性能和反应速度就不用说了。  
-它还有个兄弟ResizeObserver，如果需要监听元素尺寸变化就得用这个，不过这个的兼容性还很差，需要的话可以[polyfill](https://link.zhihu.com/?target=https%3A//github.com/WICG/ResizeObserver)。
+它还有个兄弟ResizeObserver，如果需要监听元素尺寸变化就得用这个，不过这个的兼容性还很差，需要的话可以polyfill：[https://github.com/WICG/ResizeObserver](https://github.com/WICG/ResizeObserver)。
 
 ## 结语
 新特性虽然兼容性差，但是你看HTML5、ES6这些不都是慢慢的变得普遍，不支持新特性的老旧浏览器也在慢慢的被抛弃，说不定过几年webcomponents变成了热门呢？了解一下总是不坏的。
+
+## 参考链接
+* https://developer.mozilla.org/zh-CN/docs/web/web_components
+* https://developers.google.com/web/fundamentals/web-components/customelements
+* https://www.webcomponents.org/introduction
+* https://polymer-zh.cn/3.0/docs/devguide/feature-overview
