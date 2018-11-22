@@ -51,7 +51,7 @@ browserify('./src/js/app.js')
 
 更多请参见官网。
 
-### 五、功能分析
+## 五、功能分析
 browserify实现了CommonJS的api，能将require依赖的代码连同CommonJS运行环境打包到文件。
 
 ### 内部过程：  
@@ -145,7 +145,7 @@ var pipeline = splicer.obj([
 
 更详细的介绍可以参见https://github.com/browserify/browserify-handbook
 
-### 六、结合gulp使用
+## 六、结合gulp使用
 
 结合gulp使用一般是这样的
 ```
