@@ -93,7 +93,7 @@ var pipeline = splicer.obj([
 - 通过module-deps解析模块的依赖，输出成json。  
 - 通过browser-pack模块将上述的json数据打包合并成一个文件。   
 
-这三个都是有github库的，想知道详细信息可以搜一下。
+这三个都是有github库的，想知道详细信息可以搜一下。
 
 ### 示例：
 打包前文件
@@ -211,7 +211,7 @@ webpack是现在最常见的构建工具，通过配置，它能打包js/css/htm
 
 相比起来，gulp+browserify的组合不是需要你配置，而是写代码。它没有webpack那么自动化，所以每个任务都需要你亲自安排，足够灵活，可定制化程度高，比较适合对自己的代码有自信的人。通过各种插件，这个组合也能很好的实现前端的构建。
 
-综合考虑，一般项目我还是推荐webpack。当webpack不能满足你的需求，或者你只需要一个简单的js模块化工具，使用browserify吧。
+综合考虑，一般项目我还是推荐webpack。当webpack不能满足你的需求，或者你只需要一个简单的js模块化工具，使用browserify吧。
 
 ## 八、参考
 - browserify  
