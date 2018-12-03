@@ -1,29 +1,30 @@
 ## 一、简介
+Browserify是一个Javascript预处理器，可以让你使用类似于node的require()的方式来组织浏览器端的Javascript代码，还可以通过预编译让前端Javascript直接使用Node NPM安装的一些库。  
+
 随着浏览器性能的提高，前端可以做的事情也越来越多，这也意味着前端的代码量会上升，一个页面需要依赖大量的js，管理起来相当复杂，这个时候我们就需要用到模块化管理工具。  
 现在构建react、vue项目时，大多会选择webpack，browserify可以是另一个选择。
 
-Browserify可以让你使用类似于node的require()的方式来组织浏览器端的Javascript代码，通过预编译让前端Javascript可以直接使用Node NPM安装的一些库。
-
 ## 二、官方示例
-安装：
+安装browserify：
 ```
 npm install -g browserify
 ```
-js代码：
+main.js  
+在main.js中引入npm库uniq，进行数组去重：
 ```
 var unique = require('uniq');
 var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
 console.log(unique(data));
 ```
-安装依赖
+安装uniq包：
 ```
 npm install uniq
 ```
-打包：
+打包main.js，输出成bundle.js：
 ```
 browserify main.js -o bundle.js
 ```
-应用：
+将bundle.js应用到html：
 ```
 <script src="bundle.js"></script>
 ```
@@ -37,6 +38,7 @@ browserify('./src/js/app.js')
 ```
 
 ### 常用api方法
+var b = browserify('./src/js/app.js');
 - b.add(file, opts)，添加入口文件。
 - b.require(file, opts)，添加依赖，可添加第二个参数{expose: 'angular'}，设置别名。
 - b.bundle(cb)，执行打包。
@@ -86,14 +88,8 @@ var pipeline = splicer.obj([
   'wrap', [],
 ])
 ```
-### 其中  
-- 使用的管道库为labeled-stream-splicer，想详细了解Pipeline请看我下方的参考链接。  
-- 通过module-deps解析模块的依赖，输出成json。  
-- 通过browser-pack模块将上述的json数据打包合并成一个文件。   
 
-这三个都是有github库的，想知道详细信息可以搜一下。
-
-### 示例：
+### 准备文件：
 打包前文件
 - name.js
 ```
@@ -104,7 +100,8 @@ var pipeline = splicer.obj([
   var name = require("./name");
   console.log("Hello! " + name);
 ```
-通过module-deps输出的json依赖大概如下
+### module-deps
+通过module-deps解析模块的依赖，输出成json：
 ```
 [
   {
@@ -120,8 +117,8 @@ var pipeline = splicer.obj([
   }
 ]
 ```
-
-通过browser-pack打包后的文件基本结构如下
+### browser-pack
+通过browser-pack模块将上述的json数据打包合并成一个文件：
 ```
 (function e(t, n, r) {
  // ...
@@ -160,35 +157,18 @@ gulp.task('browserify', function() {
     .pipe(source('bundle.js')) // 出口
     .pipe(buffer())
     .pipe(uglify()) // 压缩
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('dist/js'));
 });
 ```
-或者
-在 gulp 管道中使用 throuth2 操作 vinyl 文件对象，browserify 处理以后再返回管道中。
+
+### 同时打包多个文件
+当要同时打包多个文件，我们可以约定好入口文件格式，比如xx.entry.js，然后通过以下代码实现：
 ```
 var browserify = require('browserify');
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var through2 = require('through2');
 
-gulp.task('browserify', function() {
-  return gulp.src('./src/js/app.js')
-    .pipe(through2.obj(function(file, enc, next) {
-      browserify(file.path)
-      // .transform(reactify)
-      .bundle(function(err, res) {
-        err && console.log(err.stack);
-        file.contents = res;
-        next(null, file);
-      });
-    }))
-    .pipe(uglify()) // uglify
-    .pipe(gulp.dest('./dist/js'));
-});
-```
-throuth2在gulp中很好用，使用throuth2可以拿到文件的名称和内容等，所以有需要也可以自由修改文件的内容。  
-使用throuth2时，我们可以约定好入口文件格式，比如xx.entry.js，批量打包多个文件：
-```
 return gulp.src('./src/js/**/*.entry.js')
   .pipe(through2.obj(function(file, enc, next) {
     browserify(file.path)
@@ -198,6 +178,7 @@ return gulp.src('./src/js/**/*.entry.js')
       next(null, file);
     });
   }))
+  .pipe(gulp.dest('dist/js/'))
 ```
 
 ### 速度优化  
@@ -217,7 +198,7 @@ b.bundle()
 ```
 
 
-## 六、与webpack的比较。
+## 六、与webpack的比较
 webpack是现在最常见的构建工具，通过配置，它能打包js/css/html/图片等几乎所有的资源，非常方便。但当出未知的错误时，如果对配置项不是很熟悉，排查起来会很麻烦。
 
 相比起来，gulp+browserify的组合不是需要你配置，而是写代码。它没有webpack那么自动化，所以每个任务都需要你亲自安排，足够灵活，可定制化程度高，比较适合对自己的代码有自信的人。通过各种插件，这个组合也能很好的实现前端的构建。
