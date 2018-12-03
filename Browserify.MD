@@ -240,5 +240,5 @@ https://zhuanlan.zhihu.com/p/21681134
 - browserify-handbook  
 https://github.com/browserify/browserify-handbook
 
-## 结尾
+## 八、结尾
 文章到此结束，由于水平和经验有限，如有纰漏或建议，欢迎留言。如果觉得不错，欢迎关注海致星图，谢谢您的阅读。
