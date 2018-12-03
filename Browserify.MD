@@ -1,36 +1,35 @@
-## 一、前言
+## 一、简介
 随着浏览器性能的提高，前端可以做的事情也越来越多，这也意味着前端的代码量会上升，一个页面需要依赖大量的js，管理起来相当复杂，这个时候我们就需要用到模块化管理工具。  
 现在构建react、vue项目时，大多会选择webpack，browserify可以是另一个选择。
 
-## 二、简介
 Browserify可以让你使用类似于node的require()的方式来组织浏览器端的Javascript代码，通过预编译让前端Javascript可以直接使用Node NPM安装的一些库。
 
-## 三、官方举例
+## 二、官方示例
+安装：
 ```
 npm install -g browserify
 ```
+js代码：
 ```
 var unique = require('uniq');
 var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
 console.log(unique(data));
 ```
+安装依赖
 ```
 npm install uniq
-
+```
+打包：
+```
 browserify main.js -o bundle.js
 ```
+应用：
 ```
 <script src="bundle.js"></script>
 ```
 
-## 四、应用
-有两种应用方法
-
-### 1，敲指令
-```
-browserify main.js -o bundle.js
-```
-### 2，使用api
+## 三、使用API
+除了使用命令打包代码，还可以使用api：
 ```
 browserify('./src/js/app.js')
 .bundle()
@@ -51,8 +50,7 @@ browserify('./src/js/app.js')
 
 更多请参见官网。
 
-## 五、功能分析
-browserify实现了CommonJS的api，能将require依赖的代码连同CommonJS运行环境打包到文件。
+## 四、功能分析
 
 ### 内部过程：  
 Browserify使用了Pipeline的思想，将其拆解为职责单一的多个子过程，例如分析依赖、拓扑排序、模块去重、打包合并等，并通过 Stream Pipeline 打通整个流程。这使得整个代码的架构异常清晰，对将来的维护和优化提供了良好基础。  
@@ -145,7 +143,7 @@ var pipeline = splicer.obj([
 
 更详细的介绍可以参见https://github.com/browserify/browserify-handbook
 
-## 六、结合gulp使用
+## 五、结合gulp使用
 
 结合gulp使用一般是这样的
 ```
@@ -176,18 +174,30 @@ gulp.task('browserify', function() {
   return gulp.src('./src/js/app.js')
     .pipe(through2.obj(function(file, enc, next) {
       browserify(file.path)
-        // .transform(reactify)
-        .bundle(function(err, res) {
-          err && console.log(err.stack);
-          file.contents = res;
-          next(null, file);
-        });
+      // .transform(reactify)
+      .bundle(function(err, res) {
+        err && console.log(err.stack);
+        file.contents = res;
+        next(null, file);
+      });
     }))
     .pipe(uglify()) // uglify
     .pipe(gulp.dest('./dist/js'));
 });
 ```
 throuth2在gulp中很好用，使用throuth2可以拿到文件的名称和内容等，所以有需要也可以自由修改文件的内容。
+使用throuth2时，我们可以约定好入口文件格式，比如xx.entry.js，批量打包多个文件：
+```
+return gulp.src('./src/js/**/*.entry.js')
+  .pipe(through2.obj(function(file, enc, next) {
+    browserify(file.path)
+    .bundle(function(err, res) {
+      err && console.log(err.stack);
+      file.contents = res;
+      next(null, file);
+    });
+  }))
+```
 
 ### 速度优化  
 当依赖的文件很多时，browserify 处理速度会很慢，使用 watchify 可以大幅提高处理速度。原理是browserify每次都会完整编译，而通过watchify只重新编译有变化的部分。
@@ -206,14 +216,14 @@ b.bundle()
 ```
 
 
-## 七、与webpack的比较。
+## 六、与webpack的比较。
 webpack是现在最常见的构建工具，通过配置，它能打包js/css/html/图片等几乎所有的资源，非常方便。但当出未知的错误时，如果对配置项不是很熟悉，排查起来会很麻烦。
 
 相比起来，gulp+browserify的组合不是需要你配置，而是写代码。它没有webpack那么自动化，所以每个任务都需要你亲自安排，足够灵活，可定制化程度高，比较适合对自己的代码有自信的人。通过各种插件，这个组合也能很好的实现前端的构建。
 
 综合考虑，一般项目我还是推荐webpack。当webpack不能满足你的需求，或者你只需要一个简单的js模块化工具，使用browserify吧。
 
-## 八、参考
+## 七、参考
 - browserify  
 https://github.com/browserify/browserify
 - gulp中文网  
