@@ -141,7 +141,8 @@ var pipeline = splicer.obj([
 - 第二个参数几乎总是空的{}。它如果有的话，也是一个模块map，表示本次编译之前被加载进来的来自于其他地方的内容。
 - 第三个参数表示指定的是作为入口的模块id，可以有多个。
 
-更详细的介绍可以参见https://github.com/browserify/browserify-handbook
+更详细的介绍可以参见：
+https://github.com/browserify/browserify-handbook
 
 ## 五、结合gulp使用
 
@@ -185,7 +186,7 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./dist/js'));
 });
 ```
-throuth2在gulp中很好用，使用throuth2可以拿到文件的名称和内容等，所以有需要也可以自由修改文件的内容。
+throuth2在gulp中很好用，使用throuth2可以拿到文件的名称和内容等，所以有需要也可以自由修改文件的内容。  
 使用throuth2时，我们可以约定好入口文件格式，比如xx.entry.js，批量打包多个文件：
 ```
 return gulp.src('./src/js/**/*.entry.js')
@@ -238,3 +239,6 @@ https://zhuanlan.zhihu.com/p/28561932
 https://zhuanlan.zhihu.com/p/21681134
 - browserify-handbook  
 https://github.com/browserify/browserify-handbook
+
+## 结尾
+文章到此结束，由于水平和经验有限，如有纰漏或建议，欢迎留言。如果觉得不错，欢迎关注海致星图，谢谢您的阅读。
