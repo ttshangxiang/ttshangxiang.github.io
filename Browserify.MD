@@ -1,7 +1,7 @@
 ## 一、简介
 Browserify是一个Javascript预处理器，可以让你使用类似于node的require()的方式来组织浏览器端的Javascript代码，还可以通过预编译让前端Javascript直接使用Node NPM安装的一些库。  
 
-随着浏览器性能的提高，前端可以做的事情也越来越多，这也意味着前端的代码量会上升，一个页面需要依赖大量的js，管理起来相当复杂，这个时候我们就需要用到模块化管理工具。  
+随着浏览器性能的提高，前端可以做的事情也越来越多，这也意味着前端的代码量会上升，一个页面需要依赖大量的js，管理起来相当复杂，这个时候我们可能需要用到一些工具来处理依赖。  
 现在构建react、vue项目时，大多会选择webpack，browserify可以是另一个选择。
 
 ## 二、官方示例
@@ -9,8 +9,8 @@ Browserify是一个Javascript预处理器，可以让你使用类似于node的re
 ```
 npm install -g browserify
 ```
+在main.js中引入npm库uniq，进行数组去重：  
 main.js  
-在main.js中引入npm库uniq，进行数组去重：
 ```
 var unique = require('uniq');
 var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
@@ -38,7 +38,9 @@ browserify('./src/js/app.js')
 ```
 
 ### 常用api方法
+```
 var b = browserify('./src/js/app.js');
+```
 - b.add(file, opts)，添加入口文件。
 - b.require(file, opts)，添加依赖，可添加第二个参数{expose: 'angular'}，设置别名。
 - b.bundle(cb)，执行打包。
@@ -54,8 +56,9 @@ var b = browserify('./src/js/app.js');
 
 ## 四、功能分析
 
+Browserify使用了Pipeline的思想，将其拆解为职责单一的多个子过程，例如分析依赖、拓扑排序、模块去重、打包合并等，并通过 Stream Pipeline 打通整个流程。这使得整个代码的架构异常清晰，对将来的维护和优化提供了良好基础。
+
 ### 内部过程：  
-Browserify使用了Pipeline的思想，将其拆解为职责单一的多个子过程，例如分析依赖、拓扑排序、模块去重、打包合并等，并通过 Stream Pipeline 打通整个流程。这使得整个代码的架构异常清晰，对将来的维护和优化提供了良好基础。  
 从以下这段核心代码可以看出处理的流程。  
 ```
 var splicer = require('labeled-stream-splicer')
@@ -89,8 +92,8 @@ var pipeline = splicer.obj([
 ])
 ```
 
+以下是打包过程中某几个核心流程的展示：
 ### 准备文件：
-打包前文件
 - name.js
 ```
   module.exports = "aya";
@@ -138,7 +141,7 @@ var pipeline = splicer.obj([
 - 第二个参数几乎总是空的{}。它如果有的话，也是一个模块map，表示本次编译之前被加载进来的来自于其他地方的内容。
 - 第三个参数表示指定的是作为入口的模块id，可以有多个。
 
-更详细的介绍可以参见：
+更详细的介绍可以参见：  
 https://github.com/browserify/browserify-handbook
 
 ## 五、结合gulp使用
