@@ -63,7 +63,7 @@ systemctl start ss
 
 5. 完毕!
 
-最佳在测试阿里云香港服务器，比vultr快很多。  
+最近在测试阿里云香港服务器，感觉比vultr快很多。  
 用过的：  
-vultr：https://www.vultr.com，2.5美元、3.5美元、5美元等。  
-阿里云轻服务器：https://www.aliyun.com/product/swas，最低有24元/月。  
+[vultr](https://www.vultr.com)，2.5美元、3.5美元、5美元等。  
+[阿里云轻服务器](https://www.aliyun.com/product/swas)，最低有24元/月。  
