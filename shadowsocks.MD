@@ -15,7 +15,7 @@ pip install –upgrade pip
 ```
 pip install shadowsocks
 ```
-### 3. 修改配置  
+#### 3. 修改配置  
 位置：/etc/shadowsocks.json  
 ```
 {
