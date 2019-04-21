@@ -1,8 +1,8 @@
 ### 安装shadowsocks流程
 
-> 环境：centos7.3
+环境：centos7.3  
 
-1. 安装pip（Centos7下一般默认自带pip）
+#### 1. 安装pip（Centos7下一般默认自带pip）  
 ```
 yum -y install epel-release
 yum -y install pip python-pip
@@ -11,13 +11,12 @@ yum -y install pip python-pip
 ```
 pip install –upgrade pip
 ```
-2. 安装shadowsocks
+#### 2. 安装shadowsocks
 ```
 pip install shadowsocks
 ```
-3. 修改配置
-位置：/etc/shadowsocks.json
-内容
+### 3. 修改配置  
+位置：/etc/shadowsocks.json  
 ```
 {
   "server": "0.0.0.0",
@@ -29,10 +28,9 @@ pip install shadowsocks
   "method": "aes-256-cfb",
   "fast_open": true
 }
-
 ```
-4. 添加开机启动
-位置：/usr/lib/systemd/system/ss.service
+#### 4. 添加开机启动  
+位置：/usr/lib/systemd/system/ss.service  
 ```
 [Unit]
 Description=Shadowsocks Server
@@ -61,7 +59,7 @@ systemctl enable ss
 systemctl start ss
 ```
 
-5. 完毕!
+#### 5. 完毕!
 
 最近在测试阿里云香港服务器，感觉比vultr快很多。  
 用过的：  
